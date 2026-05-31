@@ -1,0 +1,17 @@
+numpy
+pandas
+scipy
+scikit-learn
+torch
+matplotlib
+openpyxl
+tqdm
+numba
+fastdtw
+dtw-python
+huggingface-hub
+transformers
+safetensors
+tabpfn
+einops
+

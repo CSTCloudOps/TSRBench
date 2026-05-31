@@ -1,0 +1,26 @@
+name: tsrbench
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - matplotlib
+  - openpyxl
+  - tqdm
+  - numba
+  - pip:
+      - torch
+      - fastdtw
+      - dtw-python
+      - huggingface-hub
+      - transformers
+      - safetensors
+      - tabpfn
+      - einops
+
