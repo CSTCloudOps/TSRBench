@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.history/
+
+# Large or regenerated artifacts
+artifacts/*
+!artifacts/.gitkeep
+results/
+pretrained_models/*
+!pretrained_models/README.md
+
+# Model weights and distance caches
+*.ckpt
+*.safetensors
+torch_model.ckpt
+*.pkl
+!models/ts2vec/ts2vec/ts2vec_model.pkl
+!models/CoST/cost_ckpt/cost_ckpt.pkl
+distance_cache/
