@@ -130,7 +130,7 @@ The TS2Vec checkpoint is already included at:
 
 models/ts2vec/ts2vec/ts2vec_model.pkl
 
-The CoST checkpoint is not included because it is large. If needed, download it from https://github.com/CSTCloudOps/TSRBench/releases/cost_ckpt.pkl place it at:
+The CoST checkpoint is not included because it is large. If needed, download it from https://github.com/CSTCloudOps/TSRBench/releases/tag/cost_ckpt, place it at:
 
 models/CoST/cost_ckpt/cost_ckpt.pkl
 ---
