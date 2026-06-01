@@ -29,7 +29,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--ab_c", type=float, default=5.0)
     parser.add_argument("--ab_eps", type=float, default=1e-12)
     parser.add_argument("--gain_mode", default="binary", choices=["binary", "graded"])
-    parser.add_argument("--smoke", action="store_true", default=True, help="Run a small CPU-friendly subset.")
+    parser.add_argument("--smoke", action="store_true", default=False, help="Run a small CPU-friendly subset.")
     parser.add_argument("--full", action="store_true", help="Run the full included UCR-R dataset.")
     parser.add_argument("--tabpfn_use", action="store_true")
     parser.add_argument("--ts2vec_ckpt", default=repo_path("models", "ts2vec", "ts2vec", "ts2vec_model.pkl"))
