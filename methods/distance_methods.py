@@ -394,18 +394,6 @@ def sti_distance(x, y, search_range=10):
 
 
 def sbd(x, y):
-    # if _use_torch_backend(x, y):
-    #     xt = _to_tensor(x)
-    #     yt = _to_tensor(y, device=xt.device)
-    #     x_norm = (xt - xt.mean()) / (xt.std(unbiased=False) + 1e-8)
-    #     y_norm = (yt - yt.mean()) / (yt.std(unbiased=False) + 1e-8)
-    #     corr = _torch_full_correlation(x_norm, y_norm)
-    #     cc_T_xx = _torch_full_correlation(x_norm, x_norm)
-    #     cc_T_yy = _torch_full_correlation(y_norm, y_norm)
-    #     denom = torch.sqrt(cc_T_xx[cc_T_xx.numel() // 2] * cc_T_yy[cc_T_yy.numel() // 2]) + 1e-8
-    #     ncc = corr / denom
-    #     max_ncc = torch.max(ncc)
-    #     return float((1 - max_ncc).item())
     x_norm = (x - np.mean(x)) / (np.std(x) + 1e-8)
     y_norm = (y - np.mean(y)) / (np.std(y) + 1e-8)
     corr = np.correlate(x_norm, y_norm, mode="full")
@@ -874,47 +862,6 @@ def edr_distance(x, y, epsilon=0.1, sigma=None):
 
 
 def sax_based_distance(x, y, segment_length=10, num_symbols=5, use_gaussian=True):
-    # if _use_torch_backend(x, y):
-    #     xt = _to_tensor(x)
-    #     yt = _to_tensor(y, device=xt.device)
-    #     x_norm = (xt - xt.mean()) / (xt.std(unbiased=False) + 1e-8)
-    #     y_norm = (yt - yt.mean()) / (yt.std(unbiased=False) + 1e-8)
-
-    #     def segment_signal(signal, seg_len):
-    #         signal_len = int(signal.numel())
-    #         valid_len = (signal_len // seg_len) * seg_len
-    #         if valid_len == 0:
-    #             return torch.empty(0, device=signal.device, dtype=signal.dtype)
-    #         signal_reshaped = signal[:valid_len].view(-1, seg_len)
-    #         return signal_reshaped.mean(dim=1)
-
-    #     x_segments = segment_signal(x_norm, segment_length)
-    #     y_segments = segment_signal(y_norm, segment_length)
-    #     min_length = int(min(x_segments.numel(), y_segments.numel()))
-    #     x_segments = x_segments[:min_length]
-    #     y_segments = y_segments[:min_length]
-
-    #     if min_length == 0:
-    #         return 0.0
-
-    #     if use_gaussian:
-    #         p = torch.linspace(0, 1, num_symbols + 1, device=xt.device, dtype=xt.dtype)
-    #         quantiles = torch.sqrt(torch.tensor(2.0, device=xt.device, dtype=xt.dtype)) * torch.erfinv(2 * p - 1)
-    #     else:
-    #         combined = torch.cat([x_segments, y_segments], dim=0)
-    #         q = torch.linspace(0, 1, num_symbols + 1, device=xt.device, dtype=xt.dtype)
-    #         quantiles = torch.quantile(combined, q)
-
-    #     bins = quantiles[1:-1]
-    #     x_idx = torch.bucketize(x_segments, bins) + 1
-    #     y_idx = torch.bucketize(y_segments, bins) + 1
-
-    #     diff = torch.abs(x_idx - y_idx)
-    #     max_idx = torch.maximum(x_idx, y_idx) - 1
-    #     min_idx = torch.minimum(x_idx, y_idx)
-    #     sym_dist = torch.where(diff <= 1, torch.zeros_like(diff, dtype=xt.dtype), quantiles[max_idx] - quantiles[min_idx])
-    #     total_distance = torch.sum(sym_dist ** 2)
-    #     return float(torch.sqrt(segment_length * total_distance / max(1, min_length)).item())
 
     x_norm = (x - np.mean(x)) / (np.std(x) + 1e-8)
     y_norm = (y - np.mean(y)) / (np.std(y) + 1e-8)
