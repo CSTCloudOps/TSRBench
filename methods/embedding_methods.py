@@ -405,7 +405,7 @@ def precompute_chronos2_embeddings(
         lengths = torch.tensor([t.size(0) for t in t_list], dtype=torch.long, device=device)
         Lmax = int(lengths.max().item())
         H = int(t_list[0].size(1))
-        # 关键修改1：基于指定device创建padded和mask，从根源统一设备
+       
         padded = torch.zeros((len(t_list), Lmax, H), dtype=t_list[0].dtype, device=device)
         mask = torch.zeros((len(t_list), Lmax), dtype=torch.float32, device=device)
         for i, t in enumerate(t_list):
@@ -421,7 +421,6 @@ def precompute_chronos2_embeddings(
             out = pipeline.embed(chunk)
             embs = out[0] if isinstance(out, (tuple, list)) else out
 
-        # ---- 关键兼容：embs 可能是 Tensor(B,L,H) 或 list[Tensor(L_i,H)] ----
         if isinstance(embs, torch.Tensor):
             # (B,L,H) 直接 pooling
             if pooling == "last":
@@ -429,9 +428,7 @@ def precompute_chronos2_embeddings(
             else:
                 emb = embs.mean(dim=1)
         elif isinstance(embs, list):
-            # 关键修改2：获取模型的目标设备，传给_to_padded_batch
             model_device = next(pipeline.model.parameters()).device if hasattr(pipeline, "model") else torch.device("cpu")
-            # 直接创建GPU设备的padded和mask，无需后期迁移
             padded, mask = _to_padded_batch(embs, device=model_device)
             
             if pooling == "last":
